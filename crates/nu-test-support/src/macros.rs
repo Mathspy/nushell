@@ -135,19 +135,19 @@ macro_rules! nu_with_plugins {
 
         let commands = &*format!(
             concat!(
-                r#"--commands "#,
+                "--commands \"",
                 $(concat!(
                     "register -e ",
                     $format,
-                    r#" \"{}\";"#,
+                    " {:?};",
                 )),+,
                 "{}",
-                r#"""#,
-                r#" --plugin-config \"{}\""#,
+                "\"",
+                " --plugin-config {:?}",
             ),
-            $($crate::fs::DisplayPath::display_path(&test_bins.join($plugin_name))),+,
+            $(&test_bins.join($plugin_name)),+,
             $command,
-            $crate::fs::DisplayPath::display_path(&temp_plugin_file)
+            &temp_plugin_file
         );
 
         let target_cwd = $crate::fs::in_directory(&$cwd);
