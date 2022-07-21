@@ -11,25 +11,7 @@ jobs:
     env:
       NUSHELL_CARGO_TARGET: ci
 
-    strategy:
-      fail-fast: true
-      matrix:
-        platform: [windows-latest]
-        style: [default]
-        rust:
-          - stable
-        include:
-          - style: extra
-            flags: "--features=extra"
-          - style: default
-            flags: ""
-        exclude:
-          - platform: windows-latest
-            style: default
-          - platform: macos-latest
-            style: default
-
-    runs-on: ${{ matrix.platform }}
+    runs-on: windows-latest
 
     steps:
       - uses: actions/checkout@v2
@@ -38,7 +20,8 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain: ${{ matrix.rust }}
+          toolchain:
+            - stable
           override: true
 
       # Temporarily disabled; the cache was getting huge (2.6GB compressed) on Windows and causing issues.
@@ -51,4 +34,4 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: test
-          args: --workspace --profile ci --exclude nu_plugin_* ${{ matrix.flags }}
+          args: --workspace --profile ci --exclude nu_plugin_*
