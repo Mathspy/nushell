@@ -145,7 +145,7 @@ macro_rules! nu_with_plugins {
                 "\"",
                 " --plugin-config {:?}",
             ),
-            $(&test_bins.join($plugin_name)),+,
+            $($crate::fs::DisplayPath::display_path(&test_bins.join($plugin_name))),+,
             $command,
             &temp_plugin_file
         );
