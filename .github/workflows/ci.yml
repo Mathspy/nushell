@@ -20,8 +20,7 @@ jobs:
         uses: actions-rs/toolchain@v1
         with:
           profile: minimal
-          toolchain:
-            - stable
+          toolchain: stable
           override: true
 
       # Temporarily disabled; the cache was getting huge (2.6GB compressed) on Windows and causing issues.
