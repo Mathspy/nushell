@@ -135,15 +135,15 @@ macro_rules! nu_with_plugins {
 
         let commands = &*format!(
             concat!(
-                "--commands \"",
+                r#"--commands "#,
                 $(concat!(
                     "register -e ",
                     $format,
-                    " {};",
+                    r#" \"{}\";"#,
                 )),+,
                 "{}",
-                "\"",
-                " --plugin-config {}",
+                r#"""#,
+                r#" --plugin-config \"{}\""#,
             ),
             $($crate::fs::DisplayPath::display_path(&test_bins.join($plugin_name))),+,
             $command,
