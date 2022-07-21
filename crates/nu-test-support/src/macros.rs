@@ -139,7 +139,7 @@ macro_rules! nu_with_plugins {
                 $(concat!(
                     "register -e ",
                     $format,
-                    " {:?};",
+                    " {};",
                 )),+,
                 "{}",
                 "\"",
